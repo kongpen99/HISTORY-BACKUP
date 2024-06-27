@@ -8,5 +8,13 @@
 </head>
 <body>
     <h1>ยินดีต้อนรับเข้าสู่เว็บไซต์ Laravel 8 test program</h1>
+
+    <a href="/">Home</a>
+    <a href="/admin">Admin</a>
+    <a href="/member">Member</a>
+    <a href="/about">About</a>
+
+
+
 </body>
 </html>
