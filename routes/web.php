@@ -22,13 +22,13 @@ Route::get('/', function () {
 });
 
 //การสร้าง Route about โดยการใช้ Controllers 
-Route::get('/about',[AboutController::class,'index']);
+Route::get('/about',[AboutController::class,'index'])->name('about');
 
 //การสร้าง Route methods  โดยการใช้ Controllers 
-Route::get('/member',[MemberController::class,'index']);
+Route::get('/member',[MemberController::class,'index'])->name('member');
 
 //การสร้าง Route admin  โดยการใช้ Controllers 
-Route::get('/admin',[AdminController::class,'index']);
+Route::get('/admin',[AdminController::class,'index'])->name('admin');
 
 
 

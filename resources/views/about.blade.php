@@ -7,14 +7,19 @@
     <title>เกี่ยวกับเรา</title>
 </head>
 <body>
-    <h1>ยินดีต้อนรับเข้าสู่เว็บไซต์ Laravel 8 test program</h1>
+    <h1>DB_Backup Histoty</h1>
 
-    <a href="/">Home</a>
-    <a href="/admin">Admin</a>
-    <a href="/member">Member</a>
-    <a href="/about">About</a>
+    <p>ที่อยู่ : {{$address}} </p>
+    <p>เบอร์ติดต่อ : {{$tel}} </p>
+    <p>email : {{$email}} </p>
+    <p>email : {{$error}} </p>
+    <p>status : {{$status}} </p>
 
-
+    
+    <a href="{{url('/')}}">Home</a>
+    <a href="{{url('/admin')}}">Admin</a>
+    <a href="{{url('/member')}}">Member</a>
+    <a href="{{url('/about')}}">About</a>
 
 </body>
 </html>
