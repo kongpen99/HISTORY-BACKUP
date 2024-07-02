@@ -16,6 +16,13 @@ class checkAdmin
      */
     public function handle(Request $request, Closure $next)
     {
+        if ($request->user == "kongpeng99"){
+
+            return redirect('/admin');  
+            
+        }else{
+            return redirect('/');
+        }
         return $next($request);
     }
 }
