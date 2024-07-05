@@ -19,10 +19,10 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 //การสร้าง Route about โดยการใช้ Controllers 
-Route::get('/about',[AboutController::class,'index'])->name('about')->middleware('check');
+Route::get('/about',[AboutController::class,'index'])->name('about');
 
 //การสร้าง Route methods  โดยการใช้ Controllers 
 Route::get('/member',[MemberController::class,'index'])->name('member');
