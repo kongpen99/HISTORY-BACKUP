@@ -22,7 +22,7 @@ Route::get('/', function () {
 })->name('home');
 
 //การสร้าง Route about โดยการใช้ Controllers 
-Route::get('/about',[AboutController::class,'index'])->name('about');
+Route::get('/about',[AboutController::class,'index'])->name('about')->middleware('check');
 
 //การสร้าง Route methods  โดยการใช้ Controllers 
 Route::get('/member',[MemberController::class,'index'])->name('member');
@@ -45,3 +45,13 @@ Route::get('/admin',[AdminController::class,'index'])->name('admin')->middleware
 // });
 
 
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});

@@ -17,9 +17,9 @@ class checkAdmin
     public function handle(Request $request, Closure $next)
     {
         //ทำการ check เงื่อนไขว่าเป้นจริง ถ้าเป็นจริงให้ redirect ไปที่ admin
-        if ($request->user == "kongpeng99"){
+        if ($request->user != "kongpeng99"){
 
-            return redirect(route('about'));  
+            return redirect(route('home'));  
             
         }else{
             return redirect('/');
