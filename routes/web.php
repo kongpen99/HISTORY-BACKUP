@@ -21,6 +21,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+
+
+
 //การสร้าง Route about โดยการใช้ Controllers 
 Route::get('/about',[AboutController::class,'index'])->name('about')->middleware('check');
 
