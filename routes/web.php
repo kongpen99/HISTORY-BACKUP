@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\AdminController;
+use App\Models\User;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,19 +22,36 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('home');
+});
+
+// //Route สำหรับ Link ไปยังหน้า Web-Board
+// Route::middleware(['auth:sanctum','verified'])->get('/dashboard',function () {
+
+// })->name('dashboard');
 
 
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+
+        //ข้อมูลเอามาจาก Model User
+        $users= user::all();
+        return view('dashboard',compact('users'));
+    })->name('dashboard');
+});
 
 
 //การสร้าง Route about โดยการใช้ Controllers 
-Route::get('/about',[AboutController::class,'index'])->name('about')->middleware('check');
+//Route::get('/about',[AboutController::class,'index'])->name('about')->middleware('check');
 
 //การสร้าง Route methods  โดยการใช้ Controllers 
-Route::get('/member',[MemberController::class,'index'])->name('member');
+//Route::get('/member',[MemberController::class,'index'])->name('member');
 
 //การสร้าง Route admin  โดยการใช้ Controllers 
-Route::get('/admin',[AdminController::class,'index'])->name('admin')->middleware('check');
+//Route::get('/admin',[AdminController::class,'index'])->name('admin')->middleware('check');
 
 
 
@@ -48,13 +68,3 @@ Route::get('/admin',[AdminController::class,'index'])->name('admin')->middleware
 // });
 
 
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
