@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            History Backup 
+            <h1 style="color: blue">ข้อมูลผู้ใช้</h1>
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="container">
             <div class="row">
-                <table class="table">
+                <table class="table table-bordered">
                     <thead>
                       <tr>
                             <th scope="col">ลำดับ</th>
@@ -18,6 +18,7 @@
                       </tr>
                     </thead>
                     <tbody>
+                        {{--  @php($i=1) ทำการเพิ่มลำดับของตัวเลขที่อยู่ในตารางออกมา 1,2,3,4,5 ในแต่ละแถว  --}}
                         @php($i=1)
                         @foreach($users as $row)
                       <tr>
