@@ -24,24 +24,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// //Route สำหรับ Link ไปยังหน้า Web-Board
-// Route::middleware(['auth:sanctum','verified'])->get('/dashboard',function () {
+//Route สำหรับ Link ไปยังหน้า Web-Board
+Route::middleware(['auth:sanctum','verified'])->get('/dashboard',function () {
+      //ข้อมูลเอามาจาก Model User ทั้งหมดในตารางข้อมูล
+    $users=User::all();
+    return view('dashboard',compact('users'));
+})->name('dashboard');
 
-// })->name('dashboard');
+
+// Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
+//     Route::get('/dashboard', function () {
+//         //ข้อมูลเอามาจาก Model User
+//         $users= user::all();
+//         return view('dashboard',compact('users'));
+//     })->name('dashboard');
+// });
 
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
 
-        //ข้อมูลเอามาจาก Model User
-        $users= user::all();
-        return view('dashboard',compact('users'));
-    })->name('dashboard');
-});
+
+
+
+
+
 
 
 //การสร้าง Route about โดยการใช้ Controllers 
@@ -52,9 +57,6 @@ Route::middleware([
 
 //การสร้าง Route admin  โดยการใช้ Controllers 
 //Route::get('/admin',[AdminController::class,'index'])->name('admin')->middleware('check');
-
-
-
 
 // ใช้ Functions ในการส่งค่ากลับมาแสดงผล //
 // Route::get('/member', function () {
