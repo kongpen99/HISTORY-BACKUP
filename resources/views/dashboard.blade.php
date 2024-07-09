@@ -1,7 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <h1 style="color: blue">ข้อมูลผู้ใช้</h1>
+            <h1 style="color: blue">ข้อมูลผู้ใช้ ,{{Auth::user()->name}}</h1>
+            <b style="color: green" class='float-end'>จำนวนผู้ใช้งานระบบ {{count($users)}} คน </b>
         </h2>
     </x-slot>
 
@@ -14,7 +15,7 @@
                             <th scope="col">ลำดับ</th>
                             <th scope="col">ชื่อ</th>
                             <th scope="col">อีเมล</th>
-                            <th scope="col">วันที่เข้าสู่ระบบ</th>
+                            <th scope="col">เริ่มใช้งานระบบ</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -25,7 +26,7 @@
                             <th>{{$i++}}</th>
                             <td>{{$row->name}}</td>
                             <td>{{$row->email}}</td>
-                            <td>{{$row->created_at}}</td>
+                            <td>{{Carbon\Carbon::parse($row->created_at)->diffForHumans()}}</td>
                       </tr>
                       @endforeach
                     </tbody>

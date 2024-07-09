@@ -1,11 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\MemberController;
-use App\Http\Controllers\AdminController;
-use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 
 /*
@@ -26,19 +22,11 @@ Route::get('/', function () {
 
 //Route สำหรับ Link ไปยังหน้า Web-Board
 Route::middleware(['auth:sanctum','verified'])->get('/dashboard',function () {
-      //ข้อมูลเอามาจาก Model User ทั้งหมดในตารางข้อมูล
-    $users=User::all();
+    $users=DB::table('users')->get();
     return view('dashboard',compact('users'));
 })->name('dashboard');
 
 
-// Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
-//     Route::get('/dashboard', function () {
-//         //ข้อมูลเอามาจาก Model User
-//         $users= user::all();
-//         return view('dashboard',compact('users'));
-//     })->name('dashboard');
-// });
 
 
 
