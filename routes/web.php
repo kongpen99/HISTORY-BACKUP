@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
-
+use App\Http\Controllers\Departmentcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +15,11 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 
 //Route สำหรับ Link ไปยังหน้า Web-Board
 Route::middleware(['auth:sanctum','verified'])->get('/dashboard',function () {
@@ -27,6 +28,11 @@ Route::middleware(['auth:sanctum','verified'])->get('/dashboard',function () {
 })->name('dashboard');
 
 
+//Route ไปหน้า Department //
+Route::get('/department/all',[Departmentcontroller::class,'index'])->name('department');
+
+//กำหนด Action กดปุ่มบันทึกหรือ Submit เพื่อให้เกิด Action ใน Form ว่าจะให้ทำงานในส่วนไหน หรือ เกิด Action ในส่วนไหนโดย ระบบุ Action ผ่านตัว Route
+Route::post('/department/add',[Departmentcontroller::class,'store'])->name('addDepartment');
 
 
 
@@ -35,7 +41,7 @@ Route::middleware(['auth:sanctum','verified'])->get('/dashboard',function () {
 
 
 
-
+///ใช้ในการ อ้างอิงเส้นทาง Route#####
 
 //การสร้าง Route about โดยการใช้ Controllers 
 //Route::get('/about',[AboutController::class,'index'])->name('about')->middleware('check');

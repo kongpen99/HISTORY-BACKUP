@@ -9,12 +9,19 @@
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
-
+                
+                <!--การสร้างการอ้างอิงไปยัง Link หน้าอื่นๆ -->
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         ชื่อผู้ใช้
                     </x-jet-nav-link>
+
+                    <!--เพิ่มแผนก Department เข้าไป -->
+                    <x-jet-nav-link href="{{ route('department') }}">
+                        Department
+                    </x-jet-nav-link>
+
                 </div>
             </div>
 
