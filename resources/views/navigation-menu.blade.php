@@ -14,7 +14,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        ชื่อผู้ใช้
+                        <h2 style="color: blue">ชื่อผู้ใช้</h2>
                     </x-jet-nav-link>
 
                     <!--เพิ่มแผนก Department เข้าไป -->
