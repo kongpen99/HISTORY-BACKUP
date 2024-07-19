@@ -21,6 +21,8 @@ class checkAdmin
 
             return redirect(route('home'));  
             
+            
+            
         }else{
             return redirect('/');
         }
