@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <h1 style="color: blue">ข้อมูลผู้ใช้ ,{{Auth::user()->name}}</h1>
+            {{-- <h1 style="color: blue">ข้อมูลผู้ใช้ ,{{Auth::user()->name}}</h1> --}}
             <b style="color: green" class='float-end'>จำนวนผู้ใช้งานระบบ {{count($users)}} คน </b>
         </h2>
     </x-slot>
