@@ -11,11 +11,18 @@ use Illuminate\Support\Facades\DB;
 class Departmentcontroller extends Controller
 {
         public function index(){
-            //กำหนดโดยใช้รูปแบบ Query Builder
-            //โดยกำหนดตัวแปร $departments แล้วอ้างอิงไปที่ตัว DB:: แล้วตามด้วยตาราง ('departments')แล้วก็ให้ไปใช้ตัวฟังก์ชั่น หรือ Method ->paginate(5);  ตามด้วยจำนวนรายการที่เราต้องการให้แสดงผลในแต่ละหน้า ตัวอย่างให้แสดง 5 รายการต่อ 1 หน้า
-             $departments = DB::table('departments')->paginate(5);
+
+            //ใช้รูปแบบใหม่ใช้  Query Builder ทำการประกาศตัวแปร $department เชื่อมต่อ DB::ที่ตาราง departments ไปเชื่อมตาราง users โดยใช้ join ตามด้วยเงื่อนไขที่เราทำการ เชื่อมตาราง
+            //โดยเอาการเอาตัว คอล์มล์ (Column) departments.user_id ไปเปรียบเทียบกับ ตัวคอล์มล์ (Column) users.id
+            //คือ เอา id ที่เป็น Primary Key ของตาราง Users ไปเปรียบเทียบ Foreign Key ที่อยู่ตาราง departments คอล์มล์ (Column)  User_id เอามาเปรียบเทียบกันว่าตรงกันหรือเปล่า
+           
+             $departments=DB::table('departments')
+            ->join('users','departments.user_id','users.id')
+            //ทำการดึง ทุกๆ คอล์มล์ (Column) ที่อยู่ใน departures ส่วน Users ดึงเฉพราะ คอล์มล์ (Column) name แสดง 5 ลำดับ
+            ->select('departments.*','users.name')->paginate(5);
+
             //โดยใช้ compact และก็ชื่อตัว แปร departments  ที่บรรทัด==> return view('admin.department.index',compact('departments')); 
-             return view('admin.department.index',compact('departments'));
+         return view('admin.department.index',compact('departments'));
      }
     //... ทำการสร้าง Function store เพื่อทำการรับ Request หรือรับตำแหน่งงานที่ส่งมา...//
         public function store(Request $request){

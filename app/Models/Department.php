@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
+
 class Department extends Model
 {
     use HasFactory;
@@ -16,9 +17,5 @@ class Department extends Model
         'user_id',
         'department_name',
     ];
-    public function user(){
-        return $this->hasOne(users::class,'id','user_id');
-    }
-
   
 }

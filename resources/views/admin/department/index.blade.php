@@ -11,22 +11,61 @@
                 <div class="col-md-8">
                     {{-- เพิ่มสถานะการแจ้งเตือนเมื่อทำการป้อนข้อมูล หนเ้ Forn เรียบร้อยแล้ว --}}
                     @if(session('success'))
-
                         {{-- ใช้ CSS ในการแจ้งเตือนเมื่อทำการป้อนข้อมูล หน้าฟอร์ม เรียบร้อยแล้ว --}}
                         <div class="alert alert-success">{{session('success')}}</div>
-
                         {{-- ถ้าใช้ Code ในการแจ้งเตือนให้เป็น Tab สีเขียวเมื่อเราทำการเพิ่มข้อมูลเรียบร้อยแล้ว --}}
                         {{-- <b>{{session('success')}}</b> --}}
                     @endif
                     <div class="card">
                         <div class="card-header">ตารางข้อมูลแผนก</div>
+                        {{-- เอามาแสดงผลในตารางข้อมูลของแผนกไปรับเอา department มาแสดง --}}
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                        <th scope="col">ลำดับ</th>
+                                        <th scope="col">ชื่อ</th>
+                                        <th scope="col">ชื่อพนักงาน</th>
+                                        <th scope="col">Created_At</th>
+                                        <th scope="col">Edit</th>
+                                     
+                                </thead>
+                                <tbody>
+                                        {{-- ให้ทำการวนลูปจากตัวแปร, $departments ที่ส่งมาจากตัว Controller แล้วทำการดึงมาทีละแถว--}}
+                                    @foreach($departments as $row)
+                                <tr>    
+                                        {{-- โดยทำการใส่คำสั่ง $departments ตามด้วยฟังก์ชั่น firstitem นำตัวแปรลูป ($loop) มาใช้งานดดยให้อ้างอิงลำดับจากสมาชิกที่อยู่ใน department ใน index.blade.php --}}
+                                        <th>{{$departments->firstitem()+$loop->index}}</th>
+                                        {{-- ให้ทำการอ้างอิงไปที่ department_name  --}}
+                                        <td>{{$row->department_name}}</td>
+                                           {{-- ให้ทำการเอา user_id เอาออกไป ไปเรียก function user แล้วก็ฟิวส์ name ก็จะสามารถดึงชื่อ คนหรือผู้ที่ทำการบันทึกข้อมูลออกมาแสดงผลได้ --}}
+                                        <td>{{$row->name}}</td>
+                                        <td>
+                                            {{-- ทำการกรองข้อมูล ถ้า Row ในช่อง created_at มีค่าเป็นค่าว่างจะให้เป็นอะไร    --}}
+                                            @if($row->created_at == null)
+                                                {{-- ถ้าเป็นค่า null ให้แสดง "  ไม่ถูกนิยาม" --}}
+                                                ไม่ถูกนิยาม
+                                            @else
+                                            {{-- แต่ถ้าไม่เป้นค่า null ,มีค่าจะให้ทำอะไรจะให้แสดง  created_at  --}}
+                                                {{carbon\carbon::parse($row->created_at)->diffForHumans()}}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="" class="btn btn-primary">แก้ไข</a>
+                                        </td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            
+                            {{-- ให้แสดงต่อท้าย Table (ตาราง) โดยระบุ $department ที่ส่งมาแล้วทำการเรียกใช้งานฟังก์ชั่น links เพื่อเป็นการบอกว่าเราจะเอาหมายเลขหน้ามาแสดงต่อท้ายตาราง--}}
+                                 {{$departments->links()}}
                         </div>
+
                     </div>
-                    {{-- ทำการสร้างแบบฟอร์ม --}}
+                     {{-- ทำการสร้างแบบฟอร์ม --}}
                     <div class="col-md-4">
                         <div class="card">
                             <div class="card-header">แบบฟอร์ม</div>
-
                             {{-- สร้างชุดตารางรับการกรอก ข้อมูลเข้ามา และเมื่อการกดปุ่มบันทึกจะทำให้เกิด action โดยให้ไปเรียกใช้งาน Route ที่มีชื่อว่า addDepartment--}}
                             <div class="card-body">
                                 <form action="{{route('addDepartment')}}" method="post">
@@ -42,7 +81,6 @@
                                             <span class="text-danger">{{$message}}</span>
                                         </div>
                                     @enderror
-
                                     {{-- (););ร้างปุ่มบันทึกข้อมูลที่ป้อนเข้ามา --}}
                                     <br>
                                     <input type="submit" value="บันทึก" class="btn btn-primary">
