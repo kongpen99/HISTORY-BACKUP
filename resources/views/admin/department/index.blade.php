@@ -26,6 +26,7 @@
                                         <th scope="col">ชื่อ</th>
                                         <th scope="col">ชื่อพนักงาน</th>
                                         <th scope="col">Created_At</th>
+                                        {{-- {{-- ทำการเพิ่ม หัวตาราง Edit แก้ไข--}}
                                         <th scope="col">Edit</th>
                                      
                                 </thead>
@@ -49,8 +50,9 @@
                                                 {{carbon\carbon::parse($row->created_at)->diffForHumans()}}
                                             @endif
                                         </td>
+                                        {{-- ทำการสร้างแถว td โดยการสร้างป็น link และทำการใส่ Class Bootstart เพือสร้างปุ่มขึ้นมา  --}}
                                         <td>
-                                            <a href="" class="btn btn-primary">แก้ไข</a>
+                                            <a href="{{url('/department/edit/'.$row->id)}}" class="btn btn-primary">แก้ไข</a>
                                         </td>
                                 </tr>
                                 @endforeach

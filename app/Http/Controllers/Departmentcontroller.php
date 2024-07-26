@@ -9,9 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 // use App\Models\Department as ModelsDepartment;
 class Departmentcontroller extends Controller
-{
+    {
         public function index(){
-
             //ใช้รูปแบบใหม่ใช้  Query Builder ทำการประกาศตัวแปร $department เชื่อมต่อ DB::ที่ตาราง departments ไปเชื่อมตาราง users โดยใช้ join ตามด้วยเงื่อนไขที่เราทำการ เชื่อมตาราง
             //โดยเอาการเอาตัว คอล์มล์ (Column) departments.user_id ไปเปรียบเทียบกับ ตัวคอล์มล์ (Column) users.id
             //คือ เอา id ที่เป็น Primary Key ของตาราง Users ไปเปรียบเทียบ Foreign Key ที่อยู่ตาราง departments คอล์มล์ (Column)  User_id เอามาเปรียบเทียบกันว่าตรงกันหรือเปล่า
@@ -19,13 +18,13 @@ class Departmentcontroller extends Controller
              $departments=DB::table('departments')
             ->join('users','departments.user_id','users.id')
             //ทำการดึง ทุกๆ คอล์มล์ (Column) ที่อยู่ใน departures ส่วน Users ดึงเฉพราะ คอล์มล์ (Column) name แสดง 5 ลำดับ
-            ->select('departments.*','users.name')->paginate(5);
-
+            ->select('departments.*','users.name')
+            ->paginate(5);
             //โดยใช้ compact และก็ชื่อตัว แปร departments  ที่บรรทัด==> return view('admin.department.index',compact('departments')); 
-         return view('admin.department.index',compact('departments'));
-     }
-    //... ทำการสร้าง Function store เพื่อทำการรับ Request หรือรับตำแหน่งงานที่ส่งมา...//
-        public function store(Request $request){
+            return view('admin.department.index',compact('departments'));
+            }
+             //... ทำการสร้าง Function store เพื่อทำการรับ Request หรือรับตำแหน่งงานที่ส่งมา...//
+             public function store(Request $request){
             //ตรวจสอบข้อมูล
             //ทำการ ดีบักข้อมูลที่ส่งมาแสดงผล
             // dd($request->department_name); --ใช้ในการตรวจสอบการป้อนข้อมูลแสดงค่าที่ป้อนออกมาแสดง
@@ -57,7 +56,18 @@ class Departmentcontroller extends Controller
             DB::table('departments')->insert($data);
            //ให้กลับมาในแบบฟอร์มบันทึกข้อมูลเหมือนเดิม พร้อมส่งค่า แสดงข้อมูลว่าทำการ บันทึกเรียบร้อยแล้ว
             Return redirect()->back()->with('success',"บันทึกข้อมูลเรียบร้อย");
+            
     }
+          
+        //ทำการสร้าง Functions edit ในการแก้ไขข้อมูล มีการส่งพารามิเตอร์ มา 1 ตัวคือ id ($id)
+        public function edit($id) {
+            //ไปที่ส่วน departments ทำการค้นหา id โดยใช้ method ::find เมื่อทำการค้นหาได้ข้อมูลอะไรตอบกลับมาก็มาเก็บในตัวแปร $department
+            $department =Department::find($id);
+            // แสดงใน view edit.blade.php 
+            //โดยใช้ return view แล้วก็ admin.โฟเดอร์ department.ไฟร์ edit และก็ทำการโยนส่วนของ department เข้าไปด้วย
+            return view('admin.department.edit',compact('department'));
+    
+        }
 }
             //     // บันทึกข้อมูลลงในตาราง Department // เป็นแแบบ Eloquent ORM
             //     // ข้อมูลที่เราจะบันทึกลงไปใน ฟิวล์ department_name
