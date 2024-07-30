@@ -31,6 +31,8 @@
                                 {{-- (););สร้างปุ่มบันทึกข้อมูลที่ป้อนเข้ามา --}}
                                 <br>
                                 <input type="submit" value="อัพเดต" class="btn btn-primary">
+                         
+
                             </form>
                         </div>
             </div> 

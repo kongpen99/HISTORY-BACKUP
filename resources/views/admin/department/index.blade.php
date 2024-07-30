@@ -53,6 +53,8 @@
                                         {{-- ทำการสร้างแถว td โดยการสร้างป็น link และทำการใส่ Class Bootstart เพือสร้างปุ่มขึ้นมา  --}}
                                         <td>
                                             <a href="{{url('/department/edit/'.$row->id)}}" class="btn btn-primary">แก้ไข</a>
+                                        
+
                                         </td>
                                 </tr>
                                 @endforeach
