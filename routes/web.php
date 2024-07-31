@@ -27,10 +27,16 @@
          Route::middleware(['auth:sanctum','verified'])->group(function(){
         //Route ไปหน้า Department //
         Route::get('/department/all',[Departmentcontroller::class,'index'])->name('department');
+
         //กำหนด Action กดปุ่มบันทึกหรือ Submit เพื่อให้เกิด Action ใน Form ว่าจะให้ทำงานในส่วนไหน หรือ เกิด Action ในส่วนไหนโดย ระบบุ Action ผ่านตัว Route
         Route::post('/department/add',[Departmentcontroller::class,'store'])->name('addDepartment'); 
         
         //ทำสร้าง Route กำหนด สำหรับปุ่มแก้ไขข้อมูล Edit
         Route::get('/department/edit/{id}',[Departmentcontroller::class,'edit']);
+
+         //ทำสร้าง Route กำหนด สำหรับปุ่มอัพเดตข้อมูล  Update
+         //ใช้ Method post (วิธี โพสต์ post) คือส่งข้อมูลจากแบบฟอร์มไปที่ตัว Controller และ ฟังก์ชั้น
+         //รูปแบบการส่ง ระบบเป็น department/update/id ตัว controller คือตัว Departmentcontroller ฟังก์ชั่น update  
+        Route::post('/department/update/{id}',[Departmentcontroller::class,'update']);
         
     });

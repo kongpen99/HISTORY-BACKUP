@@ -14,7 +14,10 @@
                         <div class="card-header">แบบฟอร์มแก้ไขข้อมูล</div>
                         {{-- สร้างชุดตารางรับการกรอก ข้อมูลเข้ามา และเมื่อการกดปุ่มบันทึกจะทำให้เกิด action โดยให้ไปเรียกใช้งาน Route ที่มีชื่อว่า addDepartment--}}
                         <div class="card-body">
-                            <form action="" method="post">
+
+                            {{-- ทำการ update ข้อมูลเมื่อทำการกดปุ่ม อัพเดต--}}
+                            <form action="{{url('/department/update/'.$dapartment->id)}}" method="post">
+
                                 {{-- @csrf เพื่อป้องกันการ แฮกระบบป้อนข้อมูลในแบบฟอร์มแบบสคิปข้อมูลเข้ามา --}}
                                 @csrf  
                                 <div class="form-group">
