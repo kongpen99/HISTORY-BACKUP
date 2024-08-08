@@ -15,8 +15,9 @@
                         {{-- สร้างชุดตารางรับการกรอก ข้อมูลเข้ามา และเมื่อการกดปุ่มบันทึกจะทำให้เกิด action โดยให้ไปเรียกใช้งาน Route ที่มีชื่อว่า addDepartment--}}
                         <div class="card-body">
 
-                            {{-- ทำการ update ข้อมูลเมื่อทำการกดปุ่ม อัพเดต--}}
-                            <form action="{{url('/department/update/'.$dapartment->id)}}" method="post">
+                            {{-- ทำการ update ข้อมูลเมื่อทำการกดปุ่ม อัพเดต ซึ่งทำการกำหนด URL Action ในแบบฟอร์มแก้ไขข้อมูลส่งไปซึ่งจะวิ่งไปที่ Part ('/department/update/'.$department->id)--}}
+
+                            <form action="{{url('/department/update/'.$department->id)}}" method="post">
 
                                 {{-- @csrf เพื่อป้องกันการ แฮกระบบป้อนข้อมูลในแบบฟอร์มแบบสคิปข้อมูลเข้ามา --}}
                                 @csrf  

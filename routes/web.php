@@ -12,13 +12,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-    Route::get('/', function () {
-        return view('welcome'); 
-    });
+        Route::get('/', function () {
+            return view('welcome'); 
+        });
 
 
     //Route สำหรับ Link ไปยังหน้า Web-Board
-    Route::middleware(['auth:sanctum','verified'])->get('/dashboard',function () {
+         Route::middleware(['auth:sanctum','verified'])->get('/dashboard',function () {
         $users=DB::table('users')->get();
         return view('dashboard',compact('users')); 
         })->name('dashboard');
@@ -37,6 +37,10 @@
          //ทำสร้าง Route กำหนด สำหรับปุ่มอัพเดตข้อมูล  Update
          //ใช้ Method post (วิธี โพสต์ post) คือส่งข้อมูลจากแบบฟอร์มไปที่ตัว Controller และ ฟังก์ชั้น
          //รูปแบบการส่ง ระบบเป็น department/update/id ตัว controller คือตัว Departmentcontroller ฟังก์ชั่น update  
+         
         Route::post('/department/update/{id}',[Departmentcontroller::class,'update']);
+
+        //ทำสร้าง Route กำหนด สำหรับปุ่มลบข้อมูล Delete
+        Route::get('/department/softdelete/{id}',[Departmentcontroller::class,'softdelete']);
         
     });

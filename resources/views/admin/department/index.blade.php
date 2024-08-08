@@ -25,21 +25,21 @@
                                         <th scope="col">ลำดับ</th>
                                         <th scope="col">ชื่อ</th>
                                         <th scope="col">ชื่อพนักงาน</th>
-                                        <th scope="col">Created_At</th>
-                                        {{-- {{-- ทำการเพิ่ม หัวตาราง Edit แก้ไข--}}
-                                        <th scope="col">Edit</th>
-                                     
+                                        <th scope="col">วันที่ทำการสร้าง</th>
+                                        <th scope="col">แก้ไขข้อมูล</th>
+                                        <th scope="col">ลบข้อมูล</th>
+                                </tr>        
                                 </thead>
                                 <tbody>
                                         {{-- ให้ทำการวนลูปจากตัวแปร, $departments ที่ส่งมาจากตัว Controller แล้วทำการดึงมาทีละแถว--}}
                                     @foreach($departments as $row)
                                 <tr>    
-                                        {{-- โดยทำการใส่คำสั่ง $departments ตามด้วยฟังก์ชั่น firstitem นำตัวแปรลูป ($loop) มาใช้งานดดยให้อ้างอิงลำดับจากสมาชิกที่อยู่ใน department ใน index.blade.php --}}
+                                         {{-- โดยทำการใส่คำสั่ง $departments ตามด้วยฟังก์ชั่น firstitem นำตัวแปรลูป ($loop) มาใช้งานดดยให้อ้างอิงลำดับจากสมาชิกที่อยู่ใน department ใน index.blade.php --}}
                                         <th>{{$departments->firstitem()+$loop->index}}</th>
                                         {{-- ให้ทำการอ้างอิงไปที่ department_name  --}}
                                         <td>{{$row->department_name}}</td>
                                            {{-- ให้ทำการเอา user_id เอาออกไป ไปเรียก function user แล้วก็ฟิวส์ name ก็จะสามารถดึงชื่อ คนหรือผู้ที่ทำการบันทึกข้อมูลออกมาแสดงผลได้ --}}
-                                        <td>{{$row->name}}</td>
+                                        <td>{{$row->user->name}}</td>
                                         <td>
                                             {{-- ทำการกรองข้อมูล ถ้า Row ในช่อง created_at มีค่าเป็นค่าว่างจะให้เป็นอะไร    --}}
                                             @if($row->created_at == null)
@@ -50,11 +50,14 @@
                                                 {{carbon\carbon::parse($row->created_at)->diffForHumans()}}
                                             @endif
                                         </td>
-                                        {{-- ทำการสร้างแถว td โดยการสร้างป็น link และทำการใส่ Class Bootstart เพือสร้างปุ่มขึ้นมา  --}}
+                                        {{-- ทำการสร้างแถว td โดยการสร้างป็น link และทำการใส่ Class Bootstart เพือสร้างปุ่มขึ้นมา สำหรับการแก้ไข  --}}
                                         <td>
                                             <a href="{{url('/department/edit/'.$row->id)}}" class="btn btn-primary">แก้ไข</a>
-                                        
+                                        </td>
 
+                                         {{-- ทำการสร้างแถว td โดยการสร้างป็น link และทำการใส่ Class Bootstart เพือสร้างปุ่มขึ้นมาเป็นสีแดง สำหรับการลบข้อมูล  --}}
+                                        <td>
+                                            <a href="{{url('/department/softdelete/'.$row->id)}}" class="btn btn-danger">ลบข้อมูล</a>
                                         </td>
                                 </tr>
                                 @endforeach
@@ -64,7 +67,6 @@
                             {{-- ให้แสดงต่อท้าย Table (ตาราง) โดยระบุ $department ที่ส่งมาแล้วทำการเรียกใช้งานฟังก์ชั่น links เพื่อเป็นการบอกว่าเราจะเอาหมายเลขหน้ามาแสดงต่อท้ายตาราง--}}
                                  {{$departments->links()}}
                         </div>
-
                     </div>
                      {{-- ทำการสร้างแบบฟอร์ม --}}
                     <div class="col-md-4">
